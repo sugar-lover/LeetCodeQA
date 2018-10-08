@@ -78,9 +78,4 @@ public class Solution {
 		return 0;
     }
     
-    public String longestPalindrome(String s) {
-    	
-		return s;
-        
-    }
 }
