@@ -2,6 +2,7 @@ package day1008;
 
 import java.util.Arrays;
 
+
 public class Solution {
 
     public int removeDuplicates (int[] nums) {
@@ -47,14 +48,14 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-
+        int loopCount = 100;
         int[] nums = {1, 1, 2, 2, 3, 4, 5, 6};
         long start = System.nanoTime();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < loopCount; i++) {
             solution.removeDuplicates2(nums);
             nums = new int[]{1, 1, 2, 2, 3, 4, 5, 6};
         }
-        System.out.println((System.nanoTime() - start) / 100);
+        System.out.println((System.nanoTime() - start) / loopCount);
 
     }
 
