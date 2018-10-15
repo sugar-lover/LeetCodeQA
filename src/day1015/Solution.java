@@ -271,37 +271,36 @@ public class Solution {
     给定数独序列只包含数字 1-9 和字符 '.' 。
     给定数独永远是 9x9 形式的。*/
     public boolean isValidSudoku(char[][] board) {
-        Set<Character> set = new HashSet<Character>();
-        Set<Character> set2 = new HashSet<Character>();
-        Set<Character> set3 = new HashSet<Character>();
-        int cij = 0;
-        while (cij < 9){
+        Set<Character> setRow = new HashSet<Character>();
+        Set<Character> setCol = new HashSet<Character>();
+        Set<Character> setSudoku = new HashSet<Character>();
+        for (int cij = 0; cij < 9; cij++) {
             for (int i = 0; i < 9; i++) {
-                if (!".".equals(board[cij][i]) && !set.add(board[cij][i])) {
+                if ('.' != board[cij][i] && !setRow.add(board[cij][i])) {
                     return false;
                 }
-                if (!".".equals(board[i][cij]) && !set2.add(board[i][cij])) {
+                if ('.' != board[i][cij] && !setCol.add(board[i][cij])) {
                     return false;
                 }
-                if (!isSudoku(board, cij, i, set3) || !isSudoku(board, i, cij, set3)) {
+                if (!isSudoku(board, cij, i, setSudoku) || !isSudoku(board, i, cij, setSudoku)) {
                     return false;
                 }
             }
-            set.clear();
-            set2.clear();
-            cij ++;
+            setRow.clear();
+            setCol.clear();
         }
         return true;
     }
 
     public boolean isSudoku(char[][] board, int i, int j, Set<Character> set) {
         set.clear();
-        if (i % 3 == 1 && j % 3 == 1) {
-            for (int k = 0; k < 3; k++) {
-                for (int l = 0; l < 3; l++) {
-                    if (!".".equals(board[i - 1 + k][j - 1 + l]) && !set.add(board[i - 1 + k][j - 1 + l])) {
-                        return false;
-                    }
+        if (i % 3 != 1 || j % 3 != 1) {
+            return true;
+        }
+        for (int k = 0; k < 3; k++) {
+            for (int l = 0; l < 3; l++) {
+                if ('.' != board[i - 1 + k][j - 1 + l] && !set.add(board[i - 1 + k][j - 1 + l])) {
+                    return false;
                 }
             }
         }
@@ -315,16 +314,16 @@ public class Solution {
         int[] nums2 = {2};
         int[] digits = {9,9,9};
         int[] nums = {};
-        String[][] board= new String[][]{
-                {"8","3",".",".","7",".",".",".","."},
-                {"6",".",".","1","9","5",".",".","."},
-                {".","9","8",".",".",".",".","6","."},
-                {"8",".",".",".","6",".",".",".","3"},
-                {"4",".",".","8",".","3",".",".","1"},
-                {"7",".",".",".","2",".",".",".","6"},
-                {".","6",".",".",".",".","2","8","."},
-                {".",".",".","4","1","9",".",".","5"},
-                {".",".",".",".","8",".",".","7","9"}
+        char[][] board= new char[][]{
+                {'5','3','.','.','7','.','.','.','.'},
+                {'6','.','.','1','9','5','.','.','.'},
+                {'.','9','8','.','.','.','.','6','.'},
+                {'8','.','.','.','6','.','.','.','3'},
+                {'4','.','.','8','.','3','.','.','1'},
+                {'7','.','.','.','2','.','.','.','4'},
+                {'.','6','.','.','.','.','2','8','.'},
+                {'.','.','.','4','1','9','.','.','5'},
+                {'.','.','.','.','8','.','.','7','9'}
         };
 
         //System.out.println(Arrays.toString(s.intersect2(nums1, nums2)));
