@@ -1,5 +1,7 @@
 package day1009;
 
+import java.util.Arrays;
+
 /**
  * @author zkr123
  * @version 1.0
@@ -38,7 +40,54 @@ public class Solution {
      *
      */
     public int maxProfit(int[] prices) {
-        int money = 0;
-        return money;
+        if (prices.length <= 1) {
+            return 0;
+        }
+        // 保留中间值
+        int[] cache = new int[prices.length - 1];
+        // 先求出相邻两天的收益
+        for (int i = 0; i < prices.length - 1; i++) {
+            cache[i] = prices[i + 1] - prices[i];
+        }
+        // 若相邻两天都是正收益则相加,
+        int maxProfit = 0;
+        int maxProfitSub = 0;
+        for (int i = 0; i < cache.length; i++) {
+            if (cache[i] >= 0) {
+                maxProfitSub += cache[i];
+            } else {
+                maxProfit = maxProfit > maxProfitSub ? maxProfit : maxProfitSub;
+                maxProfitSub = 0;
+                continue;
+            }
+        }
+        System.out.println(maxProfit);
+        return maxProfit;
+    }
+
+    public int maxProfit2(int[] prices) {
+        if (prices.length <= 1) {
+            return 0;
+        }
+        int maxProfit = 0;
+        int i = 0;
+        int j = prices.length - 1;
+        while (true) {
+            if (i >= j) {
+                return maxProfit;
+            }
+            maxProfit = prices[j] - prices[i] > maxProfit ? prices[j] - prices[i] : maxProfit;
+            if (prices[j - 1] - prices[i] > prices[j] - prices[i + 1]) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int[] prices = {1,2,11,4,7};
+        System.out.println(solution.maxProfit2(prices));
     }
 }
