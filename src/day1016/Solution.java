@@ -69,21 +69,149 @@ public class Solution {
         }
     }
 
+
+    /*编写一个函数，其作用是将输入的字符串反转过来。
+
+    示例 1:
+    输入: "hello"
+    输出: "olleh"
+
+    示例 2:
+    输入: "A man, a plan, a canal: Panama"
+    输出: "amanaP :lanac a ,nalp a ,nam A"*/
+    public String reverseString(String s) {
+        return new StringBuilder(s).reverse().toString();
+    }
+
+    public String reverseString2(String s) {
+        char[] chars = s.toCharArray();
+        char param;
+        for (int i = 0; i < chars.length / 2; i++) {
+            if (chars[i] != chars[chars.length - 1 -i]) {
+                param = chars[i];
+                chars[i] = chars[chars.length - 1 -i];
+                chars[chars.length - 1 -i] = param;
+            }
+        }
+        return new String(chars);
+    }
+
+
+    /*给定一个 32 位有符号整数，将整数中的数字进行反转。
+
+    示例 1:
+
+    输入: 123
+    输出: 321
+    示例 2:
+
+    输入: -123
+    输出: -321
+    示例 3:
+
+    输入: 120
+    输出: 21
+    注意:
+
+    假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。根据这个假设，如果反转后的整数溢出，则返回 0*/
+    public int reverse (int x) {
+        char[] chars = (x + "").toCharArray();
+        char param;
+        int zeroCount = 0;
+        boolean zeroCountFlag = true;
+        int i = chars[0] == '-' ? 1 : 0;
+        int j = chars.length - 1;
+        int k = i;
+        while (j > k) {
+            if (chars[j] == '0' && zeroCountFlag) {
+                zeroCount ++;
+                j--;
+                continue;
+            }
+            zeroCountFlag = false;
+
+            if (chars[k] != chars[j]) {
+                param = chars[k];
+                chars[k] = chars[j];
+                chars[j] = param;
+            }
+            k++;
+            j--;
+        }
+        String s = new String(chars).substring(0, chars.length - zeroCount);
+        if (zeroCount != 0){
+            return Integer.parseInt(s);
+        }
+        if (i == 0 && s.length() == 10) {
+            int ra = Integer.parseInt(s.substring(0, s.length() - 1));
+            if (ra > Integer.MAX_VALUE / 10){
+                return 0;
+            } else if (ra < Integer.MAX_VALUE / 10 || chars[chars.length - 1] < '7') {
+                return Integer.parseInt(s);
+            } else {
+                return 0;
+            }
+        }
+        if (i == 1 && s.length() == 11){
+            int ra = Integer.parseInt(s.substring(0, s.length() - 1));
+            if (ra < -Integer.MAX_VALUE / 10){
+                return 0;
+            } else if (ra > -Integer.MAX_VALUE / 10 || chars[chars.length - 1] < '7') {
+                return Integer.parseInt(s);
+            } else {
+                return 0;
+            }
+        }
+        return Integer.parseInt(s);
+    }
+
+    public int reverse2 (int x) {
+        if (x < 10 && x > -10) {
+            return x;
+        }
+        if (x == -Integer.MAX_VALUE - 1) {
+            return 0;
+        }
+        int y = Math.abs(x);
+        int result = 0;
+        String s = new StringBuilder(y + "").reverse().toString();
+        if (s.length() < 10) {
+            result = x < 0 ? -Integer.parseInt(s) : Integer.parseInt(s);
+            return result;
+        }
+        int la = Integer.parseInt(s.substring(0, s.length() - 1));
+        if (la > Integer.MAX_VALUE / 10) {
+            return 0;
+        } else if (s.charAt(s.length() - 1) > '7') {
+            return 0;
+        } else {
+            result = x < 0 ? -Integer.parseInt(s) : Integer.parseInt(s);
+            return result;
+        }
+    }
+
     public static void main(String[] args) {
-        Solution s = new Solution();
-        int[][] matrix = {
-            {1,2,3},
-            {4,5,6},
-            {7,8,9}
-        };
-        for (int[] ints : matrix) {
-            System.out.println(Arrays.toString(ints));
-        }
-        System.out.println();
-        s.rotate(matrix);
-        for (int[] ints : matrix) {
-            System.out.println(Arrays.toString(ints));
-        }
+        Solution so = new Solution();
+        //int[][] matrix = {
+        //    {1,2,3},
+        //    {4,5,6},
+        //    {7,8,9}
+        //};
+        //for (int[] ints : matrix) {
+        //    System.out.println(Arrays.toString(ints));
+        //}
+        //System.out.println();
+        //so.rotate(matrix);
+        //for (int[] ints : matrix) {
+        //    System.out.println(Arrays.toString(ints));
+        //}
+
+        //String s = "hello";
+        //System.out.println("so.reverseString2(s): " + so.reverseString2(s));
+        int y = 123;
+        System.out.println(so.reverse2(y));
+
+
 
     }
 }
