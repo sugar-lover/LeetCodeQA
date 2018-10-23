@@ -79,16 +79,22 @@ public class Solution {
     解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
     因此返回 INT_MIN (−231) 。*/
     public int myAtoi(String str) {
+        if (str == null || "".equals(str.trim())) {
+            return 0;
+        }
         int startIndex = -1;
         int endIndex = -1;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == ' ') {
                 continue;
             }
-            if (startIndex == -1 && (str.charAt(i) == '-' || (str.charAt(i) >= '0' && str.charAt(i) <= '9'))) {
+            if (startIndex == -1 && (str.charAt(i) == '-' || str.charAt(i) == '+' || (str.charAt(i) >= '0' && str.charAt(i) <= '9'))) {
                 startIndex = i;
                 endIndex = i;
                 continue;
+            }
+            if (startIndex == -1 && !(str.charAt(i) == '-' || str.charAt(i) == '+' || (str.charAt(i) >= '0' && str.charAt(i) <= '9'))) {
+                return 0;
             }
             if (endIndex == i - 1 && (str.charAt(i) >= '0' && str.charAt(i) <= '9')) {
                 endIndex = i;
@@ -97,9 +103,43 @@ public class Solution {
                 break;
             }
         }
+
         String s = str.substring(startIndex, endIndex + 1);
-        System.out.println(s);
-        return 1;
+        s = s.startsWith("-") || s.startsWith("+") ? s : "+" + s;
+        while (s.length() > 1 && s.charAt(1) == '0') {
+            s = s.replaceFirst("0", "");
+        }
+        if (s.length() == 1) {
+            return 0;
+        }
+        if (s.length() < 11) {
+            return Integer.parseInt(s);
+
+        }
+        if (s.length() > 11) {
+            int res = s.startsWith("-") ? Integer.MAX_VALUE + 1 : Integer.MAX_VALUE;
+            return res;
+        }
+        if (s.length() == 11) {
+            int p = Integer.parseInt(s.substring(0, s.length() - 1));
+            int p1 = Math.abs(p);
+            if (p1 < Integer.MAX_VALUE / 10) {
+                return Integer.parseInt(s);
+            } else if (p1 > Integer.MAX_VALUE / 10) {
+                int res = s.startsWith("-") ? Integer.MAX_VALUE + 1 : Integer.MAX_VALUE;
+                return res;
+            } else {
+                int last = p > 0 ? '7' : '8';
+                if (s.charAt(s.length() - 1) <= last) {
+                    return Integer.parseInt(s);
+                } else {
+                    int res = s.startsWith("-") ? Integer.MAX_VALUE + 1 : Integer.MAX_VALUE;
+                    // return
+                    return res;
+                }
+            }
+        }
+        return 0;
     }
 
     public static void main(String[] args) {
@@ -108,8 +148,9 @@ public class Solution {
         //String s = "A man, a plan, a canal: P danama";
         //System.out.println(solution.isPalindrome(s));
 
-        String s = "words and 987";
+        String s = "2147483648";
         System.out.println(solution.myAtoi(s));
+
 
     }
 }
