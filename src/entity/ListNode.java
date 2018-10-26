@@ -1,4 +1,5 @@
-package day0920;
+package entity;
+
 /**
  * @author zkr123
  * @version 1.0
@@ -7,7 +8,7 @@ package day0920;
  * @date 2018/10/9 15:06
  */
 public class ListNode {
-	int val;
-	ListNode next;
-	ListNode(int x) { val = x; }
+	public int val;
+	public ListNode next;
+	public ListNode(int x) { val = x; }
 }

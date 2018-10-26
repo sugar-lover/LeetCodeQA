@@ -1,5 +1,7 @@
 package day0920;
 
+import entity.ListNode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
