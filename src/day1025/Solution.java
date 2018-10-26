@@ -86,23 +86,23 @@ public class Solution {
             return sb.toString();
         }
         char[] sChars = sb.toString().toCharArray();
-        int i = 0;
         int count = 1;
         char value = '0';
         sb = new StringBuilder("");
-        count = 1;
-        while (i < sChars.length) {
-            value = sChars[i];
-            if (i + 1 < sChars.length && sChars[i] == sChars[i + 1]) {
-                count ++;
-                i++;
+        for (int i = 0; i < sChars.length; i++) {
+            if (i == 0) {
+                value = sChars[i];
+                continue;
+            }
+            if (value == sChars[i]) {
+                count++;
             } else {
                 sb.append(count).append(value);
+                value = sChars[i];
                 count = 1;
-                i++;
             }
-            System.out.println(sb.toString());
         }
+        sb.append(count).append(value);
         return countAndSay(n - 1, sb);
     }
 
@@ -113,6 +113,6 @@ public class Solution {
         String needle = "op";
         //System.out.println(solution.strStr(haystack, needle));
 
-        System.out.println(solution.countAndSay(3));
+        System.out.println(solution.countAndSay(7));
     }
 }
