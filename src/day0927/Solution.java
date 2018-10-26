@@ -5,10 +5,16 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * @author zkr123
+ * @version 1.0
+ * @ClassName ListNode
+ * @Description
+ * @date 2018/10/9 15:06
+ */
 public class Solution {
-    public boolean is (int[] hand, int W) {
-        if (hand.length % W != 0) {
+    public boolean is (int[] hand, int w) {
+        if (hand.length % w != 0) {
             return false;
         }
         Arrays.sort(hand);
@@ -23,7 +29,7 @@ public class Solution {
         while (al.size() > 0) {
             value = al.get(0);
             al.remove(Integer.valueOf(value));
-            for (int i = 0; i < W - 1; i++) {
+            for (int i = 0; i < w - 1; i++) {
                 value ++;
                 if (!al.remove(Integer.valueOf(value))) {
                     return false;

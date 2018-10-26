@@ -2,7 +2,13 @@ package day0925;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author zkr123
+ * @version 1.0
+ * @ClassName ListNode
+ * @Description
+ * @date 2018/10/9 15:06
+ */
 public class Solution {
     /**
      * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
