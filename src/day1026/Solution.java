@@ -1,5 +1,7 @@
 package day1026;
 
+import entity.ListNode;
+
 /**
  * @author zkr123
  * @version 1.0
@@ -68,9 +70,35 @@ public class Solution {
     给定的节点为非末尾节点并且一定是链表中的一个有效节点。
     不要从你的函数中返回任何结果。*/
 
+    public void deleteNode(ListNode node) {
+        while (node != null) {
+            node.val = node.next.val;
+            if (node.next.next == null) {
+                node.val = node.next.val;
+                node.next = null;
+                break;
+            }
+            node = node.next;
+        }
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String[] strs = new String[]{"cc","c"};
-        System.out.println(solution.longestCommonPrefix(strs));
+        //String[] strs = new String[]{"cc","c"};
+        ListNode l1 = new ListNode(4);
+        ListNode l2 = new ListNode(5);
+        ListNode l3 = new ListNode(1);
+        ListNode l4 = new ListNode(9);
+        l1.next = l2;
+        l2.next = l3;
+        l3.next = l4;
+        solution.deleteNode(l1);
+        ListNode node = l1;
+        while (node != null){
+            System.out.print(node.val + ",");
+            node = node.next;
+        }
+
+
     }
 }
